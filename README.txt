@@ -1,3 +1,5 @@
+//Mateusz Cholewa
+
 #Informacje ogólne
 Repozytorium związane jest z grą kółko i krzyżyk z algorytmem min_max. Wykorzystano moduł pygame.
 
