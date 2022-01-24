@@ -8,7 +8,7 @@ pygame.init()
 WIDTH, HEIGHT = 600, 600
 WINDOWC = (200, 200, 200)
 LINEC = (100, 100, 100)
-# GRID MATH - modify WIDTH, HEIGHT and LINEW for size chanegs
+# GRID MATH - modify WIDTH, HEIGHT and LINEW for size changes
 LINEW = 9   # odd number preferred
 LINEW2 = (LINEW - 1) / 2
 SQUARE = (WIDTH - (2*LINEW))/3
@@ -40,6 +40,7 @@ to_move, board = None, []
 
 
 def start_game():
+    '''funkcja zaczynająca nową grę'''
     global to_move, board
     WINDOW.fill(WINDOWC)
     pygame.draw.line(WINDOW, LINEC, (0, LINE1), (WIDTH, LINE1), LINEW)
@@ -54,6 +55,7 @@ def start_game():
 
 
 def move_human(position):
+    '''funkcja związana z ruchem użytkownika'''
     global to_move, board
     xindex = int(position[0]/(WIDTH/3))
     yindex = int(position[1]/(HEIGHT/3))
@@ -68,6 +70,7 @@ def move_human(position):
 
 
 def move_ai():
+    '''funkcja związana z ruchem komputera'''
     global board, to_move
     best_xy = min_max(board, to_move)
     if board[best_xy[1]][best_xy[2]] is None:
@@ -81,6 +84,7 @@ def move_ai():
 
 
 def check_win(current_board):
+    '''funkcja sprawdzająca czy nastąpiła wygrana jednego z graczy'''
     is_game_won, winning_line, player = False, (), None
     for i in range(3):
         if current_board[i][0] == current_board[i][1] == current_board[i][2] is not None:   # VERTICAL
@@ -95,6 +99,7 @@ def check_win(current_board):
 
 
 def check_tie(current_board):    # use after check win!
+    '''funkcja sprawdzająca czy nastąpił remis'''
     is_full = True
     for i in current_board:
         if not is_full:
@@ -107,6 +112,7 @@ def check_tie(current_board):    # use after check win!
 
 
 def evaluation_func(current_board):
+    '''funkcja określająca jak dobra jest pozycja graczy w danym momencie gry'''
     is_game_won, winning_line, win_player = check_win(current_board)
     if is_game_won:
         if win_player == 'X':
@@ -119,6 +125,7 @@ def evaluation_func(current_board):
 
 
 def min_max(current_board, player):
+    '''funkcja min_max - zwraca najlepsze posunięcie'''
     score = evaluation_func(current_board)
     if score is None:
         minmax_temp = None
@@ -143,6 +150,7 @@ def min_max(current_board, player):
 
 
 def main():
+    '''główna funkcja, która uruchamia program'''
     start_game()
     run = True
     while run:  # game loop
